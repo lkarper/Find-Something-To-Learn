@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class HomePage extends Component {
     render() {
         return (
-            <>
+            <div className="HomePage__description">
                 <h2>
                     Welcome to 'Find Something to Learn'!
                 </h2>
@@ -21,7 +22,19 @@ class HomePage extends Component {
                     Wikipedia for information related to the question that you've just attempted to answer!  In this way, you can easily...
                     <b>Find Something to Learn!</b>
                 </p>
-            </>
+                <div className="HomePage__quiz-options">
+                    <Link
+                        to={"/pubstyle"}
+                    >
+                        Play Pub Style!
+                    </Link>
+                    <Link
+                        to={"/jeopardy"}
+                    >
+                        Play Jeopardy! Style!
+                    </Link>
+                </div>
+            </div>
         );    
     }
 }
