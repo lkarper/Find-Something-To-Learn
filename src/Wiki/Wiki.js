@@ -9,6 +9,7 @@ class Wiki extends Component {
 
     state = {
         pages: {},
+        fetched: false
     }
 
     formWikiQuery = () => {
@@ -79,8 +80,13 @@ class Wiki extends Component {
             .then(response => response.json())
             .then(responseJson => {
                 console.log(responseJson);
+                if (Object.keys(responseJson).includes('query')) { 
+                    this.setState({
+                        pages: responseJson.query.pages
+                    });
+                }
                 this.setState({
-                    pages: responseJson.query.pages,
+                    fetched: true,
                 });
             });
     }
@@ -102,9 +108,9 @@ class Wiki extends Component {
             <>
                 <h2>Wiki Info</h2>
                 <div className="Wiki__wContainer">
-                <WikiPages pages={this.state.pages}/>
+                <WikiPages pages={this.state.pages} fetched={this.state.fetched}/>
                 <Link 
-                    to={`/pubstyle/${this.context.currentQuestion}`}
+                    to={this.context.currentQuestion < this.context.totalQuestions ? `/pubstyle/${this.context.currentQuestion}` : `/pubstyle/${this.context.currentQuestion - 1}/final`}
                 >Next Question</Link>
                 </div>
             </>

@@ -13,9 +13,12 @@ const WikiPages = (props) => {
         );
     });
 
+    const noResultsHTML = <li>Looks like something went wrong while searching Wikipedia: no results found.</li>
+    const loadingHTML = <li>Search Wikipedia...</li>
+
     return (
         <ol>
-            {pagesHTML}
+            {props.fetched ? (pagesHTML.length > 0 ? pagesHTML : noResultsHTML) : loadingHTML}
         </ol>
     );
 }

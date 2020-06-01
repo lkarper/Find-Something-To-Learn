@@ -5,6 +5,7 @@ import PubQuestion from '../PubQuestion/PubQuestion';
 import PubForm from '../PubForm/PubForm';
 import Learn from '../Learn/Learn';
 import Wiki from '../Wiki/Wiki';
+import Final from '../Final/Final';
 
 class PubStyle extends Component {
 
@@ -61,6 +62,10 @@ class PubStyle extends Component {
                 <Route
                     path={'/pubstyle/:qId/wiki'}
                     component={Wiki}
+                />
+                <Route 
+                    path={'/pubstyle/:qId/final'}
+                    component={Final}
                 />
             </PubContext.Provider>
         );
