@@ -15,12 +15,36 @@ class PubStyle extends Component {
         totalQuestions: 0,
         currentScore: 0,
         correct: false,
+        learningList: {},
+    }
+
+    addToLearningList = (key, wikiPage) => {
+        this.setState({
+            learningList: {...this.state.learningList, [key]: wikiPage},
+        });
+    }
+    
+    removeItemFromLearningList = (key) => {
+        const tempState = {...this.state.learningList};
+        delete tempState[key]
+        this.setState({
+            learningList: {...tempState}
+        });
+    }
+
+    resetLearningList = () => {
+        this.setState({
+            learningList: {}
+        });
     }
 
     handleNewQuestions = (questions) => {
         this.setState({
             questions,
             totalQuestions: questions.length,
+            currentQuestion: 0,
+            currentScore: 0,
+            correct: false,
         }, () => this.props.history.push(`/pubstyle/${this.state.currentQuestion}`));
     }
 
@@ -33,15 +57,19 @@ class PubStyle extends Component {
     }
 
     render() {
-        const { questions, currentQuestion, totalQuestions, currentScore, correct } = this.state;
+        const { questions, currentQuestion, totalQuestions, currentScore, correct, learningList } = this.state;
         const contextValue = {
             questions, 
             currentQuestion, 
             totalQuestions, 
             currentScore,
-            correct, 
+            correct,
+            learningList, 
             handleNewQuestions: this.handleNewQuestions,
             updateScoreAndCurrentQuestion: this.updateScoreAndCurrentQuestion,
+            addToLearningList: this.addToLearningList,
+            removeItemFromLearningList: this.removeItemFromLearningList,
+            resetLearningList: this.resetLearningList,
         };
 
         return (

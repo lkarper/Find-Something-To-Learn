@@ -7,6 +7,9 @@ const PubContext = React.createContext({
     currentScore: 0,
     handleNewQuestion: () => {},
     updateScoreAndCurrentQuestion: () => {},
+    addToLearningList: () => {},
+    removeItemFromLearningList: () => {},
+    resetLearningList: () => {},
 });
 
 export default PubContext;
