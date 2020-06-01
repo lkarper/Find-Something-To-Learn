@@ -28,7 +28,7 @@ class Final extends Component {
                 <ol>
                     {learningHTML.length > 0 ? learningHTML : <li>Looks like your Learning List is empty at this time.</li>}
                 </ol>
-                {learningHTML.length > 0 ? <button onClick={() => resetLearningList()}>Click here to delete your learning list!</button> : ''}
+                    {learningHTML.length > 0 ? <button onClick={() => resetLearningList()}>Click here to delete your learning list!</button> : ''}
                 <Link 
                     to={'/pubstyle'}
                 >Play Again</Link>
