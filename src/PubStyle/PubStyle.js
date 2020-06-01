@@ -4,6 +4,7 @@ import PubContext from '../PubContext/PubContext';
 import PubQuestion from '../PubQuestion/PubQuestion';
 import PubForm from '../PubForm/PubForm';
 import Learn from '../Learn/Learn';
+import Wiki from '../Wiki/Wiki';
 
 class PubStyle extends Component {
 
@@ -56,6 +57,10 @@ class PubStyle extends Component {
                 <Route 
                     path={'/pubstyle/:qId/learn'}
                     component={Learn}
+                />
+                <Route
+                    path={'/pubstyle/:qId/wiki'}
+                    component={Wiki}
                 />
             </PubContext.Provider>
         );

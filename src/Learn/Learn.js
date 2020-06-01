@@ -13,6 +13,9 @@ class Learn extends Component {
                 <Link 
                     to={`/pubstyle/${this.context.currentQuestion}`}
                 >Next Question</Link>
+                <Link 
+                    to={`/pubstyle/${this.context.currentQuestion}/wiki`}
+                >Learn Something with Wikipedia!</Link>                    
             </div>
         );
     }
