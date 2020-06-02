@@ -33,7 +33,7 @@ class JeopardyLearn extends Component {
         if (this.props.match.params.qId && Object.keys(this.context).includes('questions')) {
             const currentId = this.props.match.params.qId;
             const currentQuestion = this.context.questions[currentId].question;
-            const correctAnswer = this.context.questions[currentId].answer;
+            const correctAnswer = this.context.questions[currentId].answer.replace('\\', '');
 
             return (
                 <div className="JeopardyLearn__jContainer">
