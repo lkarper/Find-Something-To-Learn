@@ -7,8 +7,10 @@ class Learn extends Component {
     static contextType = PubContext;
 
     render() {
-        const currentQuestion = decodeURIComponent(this.context.questions[this.context.currentQuestion - 1].question);
-        const correctAnswer = decodeURIComponent(this.context.questions[this.context.currentQuestion - 1].correct_answer);
+
+        const currentId = this.props.match.params.qId;
+        const currentQuestion = decodeURIComponent(this.context.questions[currentId].question);
+        const correctAnswer = decodeURIComponent(this.context.questions[currentId].correct_answer);
 
         return (
             <div className="Learn__lContainer">
@@ -18,10 +20,10 @@ class Learn extends Component {
                 <h3>Correct answer:</h3>
                 <p>{correctAnswer}</p>
                 <Link 
-                    to={this.context.currentQuestion < this.context.totalQuestions ? `/pubstyle/${this.context.currentQuestion}` : `/pubstyle/${this.context.currentQuestion - 1}/final`}
+                    to={currentId < this.context.totalQuestions ? `/pubstyle/${(parseInt(currentId)+1)}` : `/pubstyle/${currentId}/final`}
                 >Next Question</Link>
                 <Link 
-                    to={`/pubstyle/${this.context.currentQuestion}/wiki`}
+                    to={`/pubstyle/${currentId}/wiki`}
                 >Learn Something with Wikipedia!</Link>                    
             </div>
         );

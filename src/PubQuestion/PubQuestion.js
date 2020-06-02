@@ -12,9 +12,9 @@ class PubQuestion extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.state.userGuess === this.context.questions[this.props.match.params.qId].correct_answer) {
-            this.context.updateScoreAndCurrentQuestion(1);
+            this.context.updateScoreAndCurrentQuestion(1, this.props.match.params.qId);
         } else {
-            this.context.updateScoreAndCurrentQuestion(0);
+            this.context.updateScoreAndCurrentQuestion(0, this.props.match.params.qId);
         }
     }
 

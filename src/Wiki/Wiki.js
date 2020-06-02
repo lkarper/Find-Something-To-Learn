@@ -13,8 +13,8 @@ class Wiki extends Component {
     }
 
     formWikiQuery = () => {
-        const { questions, currentQuestion } = this.context;
-        const question = questions[currentQuestion-1];
+        const { questions } = this.context;
+        const question = questions[this.props.match.params.qId];
         if (question.type !== 'boolean') {
             let correctAnswerQuery = decodeURI(question.correct_answer.toLowerCase().split(/[ ,!.'";:-]+/).filter(Boolean).join(' '));
             let questionQuery = decodeURI(question.question.toLowerCase().split(/[ ,!.'";:-]+/).filter(Boolean).join(' '));
@@ -110,7 +110,7 @@ class Wiki extends Component {
                 <div className="Wiki__wContainer">
                 <WikiPages pages={this.state.pages} fetched={this.state.fetched}/>
                 <Link 
-                    to={this.context.currentQuestion < this.context.totalQuestions ? `/pubstyle/${this.context.currentQuestion}` : `/pubstyle/${this.context.currentQuestion - 1}/final`}
+                    to={this.props.match.params.qId  < this.context.totalQuestions ? `/pubstyle/${(parseInt(this.props.match.params.qId)+1)}` : `/pubstyle/${this.props.match.params.qId}/final`}
                 >Next Question</Link>
                 </div>
             </>
