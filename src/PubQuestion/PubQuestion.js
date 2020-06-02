@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import AppContext from '../AppContext/AppContext';
 class PubQuestion extends Component {
+
+    static defaultProps = {
+        match: {
+            params: {
+                qId: '',
+            },
+        },
+    }
 
     static contextType = AppContext;
 
@@ -86,6 +95,10 @@ class PubQuestion extends Component {
             </div>
         );
     }
+}
+
+PubQuestion.propTypes = {
+    match: PropTypes.object.isRequired,
 }
 
 export default PubQuestion;
