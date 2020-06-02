@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AppContext from '../AppContext/AppContext';
 
-class Learn extends Component {
+class PubLearn extends Component {
 
     static contextType = AppContext;
 
@@ -30,4 +30,4 @@ class Learn extends Component {
     }
 }
 
-export default Learn;
+export default PubLearn;

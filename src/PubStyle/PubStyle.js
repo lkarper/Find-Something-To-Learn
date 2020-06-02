@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import AppContext from '../AppContext/AppContext';
 import PubQuestion from '../PubQuestion/PubQuestion';
 import PubForm from '../PubForm/PubForm';
-import Learn from '../Learn/Learn';
+import PubLearn from '../PubLearn/PubLearn';
 import Wiki from '../Wiki/Wiki';
 import Final from '../Final/Final';
 
@@ -81,7 +81,7 @@ class PubStyle extends Component {
                 />
                 <Route 
                     path={'/pubstyle/:qId/learn'}
-                    component={Learn}
+                    component={PubLearn}
                 />
                 <Route
                     path={'/pubstyle/:qId/wiki'}
