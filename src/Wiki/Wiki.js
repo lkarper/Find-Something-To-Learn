@@ -104,13 +104,15 @@ class Wiki extends Component {
     }
 
     render() {
+        const currentId = this.props.match.params.qId;
+        
         return (
             <>
                 <h2>Wiki Info</h2>
                 <div className="Wiki__wContainer">
                 <WikiPages pages={this.state.pages} fetched={this.state.fetched}/>
                 <Link 
-                    to={this.props.match.params.qId  < this.context.totalQuestions ? `/pubstyle/${(parseInt(this.props.match.params.qId)+1)}` : `/pubstyle/${this.props.match.params.qId}/final`}
+                    to={parseInt(currentId) + 1 === this.context.totalQuestions ? `/pubstyle/${currentId}/final` : `/pubstyle/${(parseInt(currentId)+1)}`}
                 >Next Question</Link>
                 </div>
             </>
