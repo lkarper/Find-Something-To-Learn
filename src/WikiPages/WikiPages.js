@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import AppContext from '../AppContext/AppContext';
 
 class WikiPages extends Component {
+
+    static defaultProps = {
+        pages: {},
+        fetched: false,
+    }
 
     static contextType = AppContext;
 
@@ -33,6 +39,11 @@ class WikiPages extends Component {
             </ol>
         );
     }
+}
+
+WikiPages.propTypes = {
+    pages: PropTypes.object.isRequired,
+    fetched: PropTypes.bool.isRequired,
 }
 
 export default WikiPages;
