@@ -40,6 +40,7 @@ class PubStyle extends Component {
         this.setState({
             questions,
             totalQuestions: questions.length,
+            correctAnswerqIds: [],
         }, () => this.props.history.push(`/pubstyle/0`));
     }
 
