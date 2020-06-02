@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import parse from 'html-react-parser';
 import { Link } from 'react-router-dom';
 import AppContext from '../AppContext/AppContext';
 
 class JeopardyLearn extends Component {
 
     static contextType = AppContext;
+    
     render() {
 
         const currentId = this.props.match.params.qId;
@@ -17,7 +19,7 @@ class JeopardyLearn extends Component {
                 <h3>Question: </h3>
                 <p>{currentQuestion}</p>
                 <h3>Correct answer:</h3>
-                <p>{correctAnswer}</p>
+                <p>{parse(correctAnswer)}</p>
                 <Link 
                     to={parseInt(currentId) + 1 === this.context.totalQuestions ? `/jeopardy/${currentId}/final` : `/jeopardy/${(parseInt(currentId)+1)}`}
                 >Next Question</Link>

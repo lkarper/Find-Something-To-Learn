@@ -49,7 +49,7 @@ class Wiki extends Component {
             action: "query",
             format: "json",
             list: "search",
-            srsearch: encodeURI(searchString),
+            srsearch: encodeURIComponent(searchString),
             prop: "info",
             srquiprofile: "popular_inclinks_pv",
             srwhat: "text",
