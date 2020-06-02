@@ -28,7 +28,7 @@ class JeopardyLearn extends Component {
                 <h3>Error</h3>
                 <p>Sorry, looks like something went wrong and the question and answer could not load.</p>
             </>
-        )
+        );
 
         if (this.props.match.params.qId && Object.keys(this.context).includes('questions')) {
             const currentId = this.props.match.params.qId;
