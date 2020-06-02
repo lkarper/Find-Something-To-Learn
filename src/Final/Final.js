@@ -6,6 +6,10 @@ class Final extends Component {
 
     static contextType = AppContext; 
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     render() {
         const { learningList, removeItemFromLearningList, resetLearningList } = this.context;
 
