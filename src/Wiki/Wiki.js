@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import AppContext from '../AppContext/AppContext';
 import WikiPages from '../WikiPages/WikiPages';
 
 class Wiki extends Component {
+
+    static defaultProps = {
+        match: {
+            params: {
+                qId: '',
+            },
+        },
+    }
 
     static contextType = AppContext;
 
@@ -131,7 +140,10 @@ class Wiki extends Component {
             </>
         );
     }
+}
 
+Wiki.propTypes = {
+    match: PropTypes.object.isRequired,
 }
 
 export default Wiki;
