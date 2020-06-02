@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PubContext from '../PubContext/PubContext';
+import AppContext from '../AppContext/AppContext';
 import WikiPages from '../WikiPages/WikiPages';
 
 class Wiki extends Component {
 
-    static contextType = PubContext;
+    static contextType = AppContext;
 
     state = {
         pages: {},
@@ -14,20 +14,31 @@ class Wiki extends Component {
 
     formWikiQuery = () => {
         const { questions } = this.context;
+        console.log(questions);
         const question = questions[this.props.match.params.qId];
-        if (question.type !== 'boolean') {
-            let correctAnswerQuery = decodeURI(question.correct_answer.toLowerCase().split(/[ ,!.'";:-]+/).filter(Boolean).join(' '));
-            let questionQuery = decodeURI(question.question.toLowerCase().split(/[ ,!.'";:-]+/).filter(Boolean).join(' '));
-            console.log(correctAnswerQuery, questionQuery);
-            if (correctAnswerQuery.search(/\d+/g) !== -1) {
-                return `${questionQuery} ${correctAnswerQuery}`;
+        if (Object.keys(question).includes('type')) {
+            if (question.type !== 'boolean') {
+                let correctAnswerQuery = decodeURI(question.correct_answer.toLowerCase().split(/[ ,!.'";:-]+/).filter(Boolean).join(' '));
+                let questionQuery = decodeURI(question.question.toLowerCase().split(/[ ,!.'";:-]+/).filter(Boolean).join(' '));
+                console.log(correctAnswerQuery, questionQuery);
+                if (correctAnswerQuery.search(/\d+/g) !== -1) {
+                    return `${questionQuery} ${correctAnswerQuery}`;
+                } else {
+                    return `${correctAnswerQuery} ${questionQuery}`;
+                }
             } else {
-                return `${correctAnswerQuery} ${questionQuery}`;
+                const questionQuery = decodeURI(question.question.toLowerCase().split(/[ ,!.'";:-]+/).filter(Boolean).join(' '));
+                console.log(questionQuery);
+                return `${questionQuery}`;
             }
         } else {
-            const questionQuery = decodeURI(question.question.toLowerCase().split(/[ ,!.'";:-]+/).filter(Boolean).join(' '));
-            console.log(questionQuery);
-            return `${questionQuery}`;
+            let questionQuery = question.question.match(/([A-Z]\w+)|[A-Z]+/g);
+            if (questionQuery) {
+                questionQuery = questionQuery.join(' ');
+            }
+            const answerQuery = question.answer.toLowerCase().split(/[ ,!.'";:-]+/).filter(Boolean).join(' ');
+            return `${answerQuery} ${questionQuery}`;
+
         }
     }
 
@@ -105,15 +116,17 @@ class Wiki extends Component {
 
     render() {
         const currentId = this.props.match.params.qId;
+
+        const path = this.props.match.path.indexOf('pubstyle') !== -1 ? 'pubstyle' : 'jeopardy';
         
         return (
             <>
                 <h2>Wiki Info</h2>
                 <div className="Wiki__wContainer">
-                <WikiPages pages={this.state.pages} fetched={this.state.fetched}/>
-                <Link 
-                    to={parseInt(currentId) + 1 === this.context.totalQuestions ? `/pubstyle/${currentId}/final` : `/pubstyle/${(parseInt(currentId)+1)}`}
-                >Next Question</Link>
+                    <WikiPages pages={this.state.pages} fetched={this.state.fetched}/>
+                    <Link 
+                        to={parseInt(currentId) + 1 === this.context.totalQuestions ? `/${path}/${currentId}/final` : `/${path}/${(parseInt(currentId)+1)}`}
+                    >Next Question</Link>
                 </div>
             </>
         );

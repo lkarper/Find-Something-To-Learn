@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import PubContext from '../PubContext/PubContext';
+import AppContext from '../AppContext/AppContext';
 
 class WikiPages extends Component {
 
-    static contextType = PubContext;
+    static contextType = AppContext;
 
     render() {
         const data = this.props.pages;

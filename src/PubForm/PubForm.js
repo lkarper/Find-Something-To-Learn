@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import PubContext from '../PubContext/PubContext';
+import AppContext from '../AppContext/AppContext';
 import PubCategories from '../PubCategories';
 
 class PubForm extends Component {
 
-    static contextType = PubContext;
+    static contextType = AppContext;
 
     state = {
         numQuestions : 10,
@@ -77,7 +77,7 @@ class PubForm extends Component {
             );
 
         return (
-            <form onSubmit={e => this.handleSubmit(e, this.context.handleNewQuestions)}>
+            <form onSubmit={e => this.handleSubmit(e, this.context.handleNewQuestionsPub)}>
                 <label htmlFor="num-qs">How many questions would you like?</label>
                 <input 
                     id="num-qs" 

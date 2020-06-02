@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import JeopardyContext from '../JeopardyContext/JeopardyContext';
+import AppContext from '../AppContext/AppContext';
 
 class JeopardyForm extends Component {
 
-    static contextType = JeopardyContext;
+    static contextType = AppContext;
 
     state = {
         numberQuestions: 10,
@@ -29,7 +29,7 @@ class JeopardyForm extends Component {
             })
             .then(responseJson => {
                 console.log(responseJson);
-                this.context.handleNewQuestions(responseJson);
+                this.context.handleNewQuestionsJeo(responseJson);
             })
             .catch(error => console.log('error', error));
     }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import PubContext from '../PubContext/PubContext';
+import AppContext from '../AppContext/AppContext';
 import PubQuestion from '../PubQuestion/PubQuestion';
 import PubForm from '../PubForm/PubForm';
 import Learn from '../Learn/Learn';
@@ -36,7 +36,7 @@ class PubStyle extends Component {
         });
     }
 
-    handleNewQuestions = (questions) => {
+    handleNewQuestionsPub = (questions) => {
         this.setState({
             questions,
             totalQuestions: questions.length,
@@ -61,7 +61,7 @@ class PubStyle extends Component {
             totalQuestions, 
             correctAnswerqIds,
             learningList, 
-            handleNewQuestions: this.handleNewQuestions,
+            handleNewQuestionsPub: this.handleNewQuestionsPub,
             updateScoreAndCurrentQuestion: this.updateScoreAndCurrentQuestion,
             addToLearningList: this.addToLearningList,
             removeItemFromLearningList: this.removeItemFromLearningList,
@@ -69,7 +69,7 @@ class PubStyle extends Component {
         };
 
         return (
-            <PubContext.Provider value={contextValue}>
+            <AppContext.Provider value={contextValue}>
                 <h2>Pub Style!</h2>
                 <Route 
                     exact path={'/pubstyle'}
@@ -91,7 +91,7 @@ class PubStyle extends Component {
                     path={'/pubstyle/:qId/final'}
                     component={Final}
                 />
-            </PubContext.Provider>
+            </AppContext.Provider>
         );
     }
 }

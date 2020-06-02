@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PubContext from '../PubContext/PubContext';
+import AppContext from '../AppContext/AppContext';
 class PubQuestion extends Component {
 
-    static contextType = PubContext;
+    static contextType = AppContext;
 
     state = {
         userGuess: '',

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PubContext from '../PubContext/PubContext';
+import AppContext from '../AppContext/AppContext';
 
 class Learn extends Component {
 
-    static contextType = PubContext;
+    static contextType = AppContext;
 
     render() {
 
