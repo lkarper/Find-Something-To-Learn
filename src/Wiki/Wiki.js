@@ -120,25 +120,44 @@ class Wiki extends Component {
     }
 
     componentDidMount() {
-        this.fetchWikipediaInfo();
+        if (this.props.match.params.qId && Object.keys(this.context).includes('questions')) {
+            this.fetchWikipediaInfo();
+        }
     }
 
     render() {
-        const currentId = this.props.match.params.qId;
 
-        const path = this.props.match.path.indexOf('pubstyle') !== -1 ? 'pubstyle' : 'jeopardy';
-        
-        return (
+        const errorHTML = (
             <>
-                <h2>Wiki Info</h2>
-                <div className="Wiki__wContainer">
-                    <WikiPages pages={this.state.pages} fetched={this.state.fetched}/>
-                    <Link 
-                        to={parseInt(currentId) + 1 === this.context.totalQuestions ? `/${path}/${currentId}/final` : `/${path}/${(parseInt(currentId)+1)}`}
-                    >Next Question</Link>
-                </div>
+                <h2>Error</h2>
+                <p>Looks like something went wrong and question and answer data could not be loaded.</p>
             </>
         );
+
+        if (this.props.match.params.qId && Object.keys(this.context).includes('questions')) {
+            const currentId = this.props.match.params.qId;
+
+            const path = this.props.match.path.indexOf('pubstyle') !== -1 ? 'pubstyle' : 'jeopardy';
+            
+            return (
+                <>
+                    <h2>Wiki Info</h2>
+                    <div className="Wiki__wContainer">
+                        <WikiPages pages={this.state.pages} fetched={this.state.fetched}/>
+                        <Link 
+                            to={parseInt(currentId) + 1 === this.context.totalQuestions ? `/${path}/${currentId}/final` : `/${path}/${(parseInt(currentId)+1)}`}
+                        >Next Question</Link>
+                    </div>
+                </>
+            );
+        }
+
+        return (
+            <div className="Wiki__wContainer">
+                {errorHTML}
+            </div>
+        );
+
     }
 }
 
