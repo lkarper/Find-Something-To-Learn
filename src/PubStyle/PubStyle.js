@@ -11,10 +11,8 @@ class PubStyle extends Component {
 
     state = {
         questions: [], 
-        currentQuestion: 0,
         totalQuestions: 0,
-        currentScore: 0,
-        correct: false,
+        correctAnswerqIds: [],
         learningList: {},
     }
 
@@ -42,28 +40,25 @@ class PubStyle extends Component {
         this.setState({
             questions,
             totalQuestions: questions.length,
-            currentQuestion: 0,
-            currentScore: 0,
-            correct: false,
         }, () => this.props.history.push(`/pubstyle/0`));
     }
 
     updateScoreAndCurrentQuestion = (score, qId) => {
         this.setState({
-            currentScore: this.state.currentScore + score,
-            currentQuestion: this.state.currentQuestion + 1,
-            correct: score === 1 ? true : false,
-        }, () => this.props.history.push(`/pubstyle/${qId}/learn`));
+            correctAnswerqIds: !this.state.correctAnswerqIds.includes(qId) && score ? [...this.state.correctAnswerqIds, qId] : [...this.state.correctAnswerqIds],
+        }, () => this.props.history.push({
+                pathname: `/pubstyle/${qId}/learn`,
+                state: { score },
+            })
+        );
     }
 
     render() {
-        const { questions, currentQuestion, totalQuestions, currentScore, correct, learningList } = this.state;
+        const { questions, totalQuestions, correctAnswerqIds, learningList } = this.state;
         const contextValue = {
             questions, 
-            currentQuestion, 
             totalQuestions, 
-            currentScore,
-            correct,
+            correctAnswerqIds,
             learningList, 
             handleNewQuestions: this.handleNewQuestions,
             updateScoreAndCurrentQuestion: this.updateScoreAndCurrentQuestion,

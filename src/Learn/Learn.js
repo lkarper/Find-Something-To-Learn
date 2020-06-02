@@ -14,13 +14,13 @@ class Learn extends Component {
 
         return (
             <div className="Learn__lContainer">
-                {this.context.correct ? "Congrats! You got it right!" : "Sorry, that's not the right answer."}
+                {this.props.location.state.score ? "Congrats! You got it right!" : "Sorry, that's not the right answer."}
                 <h3>Question: </h3>
                 <p>{currentQuestion}</p>
                 <h3>Correct answer:</h3>
                 <p>{correctAnswer}</p>
                 <Link 
-                    to={currentId < this.context.totalQuestions ? `/pubstyle/${(parseInt(currentId)+1)}` : `/pubstyle/${currentId}/final`}
+                    to={parseInt(currentId) + 1 === this.context.totalQuestions ? `/pubstyle/${currentId}/final` : `/pubstyle/${(parseInt(currentId)+1)}`}
                 >Next Question</Link>
                 <Link 
                     to={`/pubstyle/${currentId}/wiki`}

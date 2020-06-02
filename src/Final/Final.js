@@ -23,7 +23,7 @@ class Final extends Component {
         return (
             <div className="Final__fcontainer">
                 <h2>Final Score:</h2>
-                <p>You got {this.context.currentScore}/{this.context.totalQuestions}</p>
+                <p>You got {this.context.correctAnswerqIds.length}/{this.context.totalQuestions}</p>
                 <h2>Your Learning List!</h2>
                 <ol>
                     {learningHTML.length > 0 ? learningHTML : <li>Looks like your Learning List is empty at this time.</li>}

@@ -12,9 +12,9 @@ class PubQuestion extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.state.userGuess === this.context.questions[this.props.match.params.qId].correct_answer) {
-            this.context.updateScoreAndCurrentQuestion(1, this.props.match.params.qId);
+            this.context.updateScoreAndCurrentQuestion(true, this.props.match.params.qId);
         } else {
-            this.context.updateScoreAndCurrentQuestion(0, this.props.match.params.qId);
+            this.context.updateScoreAndCurrentQuestion(false, this.props.match.params.qId);
         }
     }
 
@@ -44,9 +44,9 @@ class PubQuestion extends Component {
     }
 
     render() { 
-        const { totalQuestions, currentScore } = this.context;
+        const { totalQuestions, correctAnswerqIds } = this.context;
         const currentQuestionIndex = this.props.match.params.qId;
-        const { category, correct_answer, difficulty, incorrect_answers, question, type } = this.context.questions[currentQuestionIndex];
+        const { category, difficulty, question, type } = this.context.questions[currentQuestionIndex];
         let choicesHTML;
         if (type === 'multiple') {
             choicesHTML = this.state.shuffledChoices.map((choice, i) => 
@@ -72,7 +72,7 @@ class PubQuestion extends Component {
         return (
             <div className="PubQuestion__qcontainer">
                 <p>Question {parseInt(currentQuestionIndex) + 1} of {totalQuestions}</p>
-                <p>Score: {currentScore}/{totalQuestions}</p>
+                <p>Score: {correctAnswerqIds.length}/{totalQuestions}</p>
                 <p>Category: {decodeURIComponent(category)}</p>
                 <p>Type: {decodeURIComponent(type)}</p>
                 <p>Difficulty: {decodeURIComponent(difficulty)}</p>
