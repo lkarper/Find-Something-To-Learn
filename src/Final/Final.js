@@ -43,7 +43,11 @@ class Final extends Component {
                     {learningHTML.length > 0 ? <button onClick={() => resetLearningList()}>Click here to delete your learning list!</button> : ''}
                 <Link 
                     to={`/${gameType}`}
-                >Play Again</Link>
+                >Play Again
+                </Link>
+                <Link to={'/'}>
+                Back to homepage</Link>
+
             </div>
         );
 
