@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import parse from 'html-react-parser';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import AppContext from '../AppContext/AppContext';
 
 class JeopardyLearn extends Component {
@@ -57,6 +58,11 @@ class JeopardyLearn extends Component {
             </div>
         );
     }
+}
+
+JeopardyLearn.propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
 }
 
 export default JeopardyLearn;
