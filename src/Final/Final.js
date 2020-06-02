@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import AppContext from '../AppContext/AppContext';
 
 class Final extends Component {
 
-    static contextType = AppContext; 
+    static contextType = AppContext;
+    
+    static defaultProps = {
+        match: {
+            path: '',
+        },
+    }
 
     componentDidMount() {
         window.scrollTo(0, 0);
@@ -56,6 +63,10 @@ class Final extends Component {
         );
 
     }
+}
+
+Final.propTypes = {
+    match: PropTypes.object.isRequired,
 }
 
 export default Final;
