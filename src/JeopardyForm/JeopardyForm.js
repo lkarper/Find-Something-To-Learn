@@ -43,7 +43,7 @@ class JeopardyForm extends Component {
                     type="number" 
                     min="5" 
                     max="100" 
-                    value="10" 
+                    value={this.state.numberQuestions}
                     required
                     onChange={e => this.setNumberQuestions(e.target.value)}
                     />

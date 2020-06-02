@@ -5,6 +5,7 @@ import JeopardyForm from '../JeopardyForm/JeopardyForm';
 import JeopardyQuestion from '../JeopardyQuestion/JeopardyQuestion';
 import JeopardyLearn from '../JeopardyLearn/JeopardyLearn';
 import Wiki from '../Wiki/Wiki';
+import Final from '../Final/Final';
 
 class Jeopardy extends Component {
 
@@ -41,6 +42,7 @@ class Jeopardy extends Component {
         this.setState({
             questions,
             totalQuestions: questions.length,
+            correctAnswersObject: {},
         }, () => this.props.history.push('/jeopardy/0'));
     }
 
@@ -90,6 +92,10 @@ class Jeopardy extends Component {
                 <Route 
                     path={'/jeopardy/:qId/wiki'}
                     component={Wiki}
+                />
+                <Route 
+                    path={'/jeopardy/:qId/final'}
+                    component={Final}
                 />
             </AppContext.Provider>
         );

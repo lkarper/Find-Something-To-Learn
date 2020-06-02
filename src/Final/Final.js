@@ -20,17 +20,29 @@ class Final extends Component {
             );
         })
 
+        let scoreHTML = null;
+        const gameType = this.props.match.path.indexOf('pubstyle') !== -1 ? 'pubstyle' : 'jeopardy';
+
+        if (gameType === 'pubstyle') {
+            scoreHTML = <p>You got {this.context.correctAnswerqIds.length}/{this.context.totalQuestions}</p>;
+        } else {
+            const currentScore = Object.keys(this.context.correctAnswersObject)
+                .map(key => parseInt(this.context.correctAnswersObject[key]))
+                .reduce((acc, curr) => {return acc + curr}, 0);
+            scoreHTML = <p>You won ${currentScore}</p>;
+        }
+
         return (
             <div className="Final__fcontainer">
                 <h2>Final Score:</h2>
-                <p>You got {this.context.correctAnswerqIds.length}/{this.context.totalQuestions}</p>
+                {scoreHTML}
                 <h2>Your Learning List!</h2>
                 <ol>
                     {learningHTML.length > 0 ? learningHTML : <li>Looks like your Learning List is empty at this time.</li>}
                 </ol>
                     {learningHTML.length > 0 ? <button onClick={() => resetLearningList()}>Click here to delete your learning list!</button> : ''}
                 <Link 
-                    to={'/pubstyle'}
+                    to={`/${gameType}`}
                 >Play Again</Link>
             </div>
         );
