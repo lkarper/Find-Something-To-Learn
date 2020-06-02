@@ -44,12 +44,12 @@ class PubStyle extends Component {
         }, () => this.props.history.push(`/pubstyle/0`));
     }
 
-    updateScoreAndCurrentQuestion = (score, qId) => {
+    updateScoreAndCurrentQuestion = (correct, qId) => {
         this.setState({
-            correctAnswerqIds: !this.state.correctAnswerqIds.includes(qId) && score ? [...this.state.correctAnswerqIds, qId] : [...this.state.correctAnswerqIds],
+            correctAnswerqIds: !this.state.correctAnswerqIds.includes(qId) && correct ? [...this.state.correctAnswerqIds, qId] : [...this.state.correctAnswerqIds],
         }, () => this.props.history.push({
                 pathname: `/pubstyle/${qId}/learn`,
-                state: { score },
+                state: { correct },
             })
         );
     }
