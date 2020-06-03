@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Jeopardy component renders the UI as expected 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "addToLearningList": [Function],
+      "checkAnswerAndUpdateScore": [Function],
+      "correctAnswersObject": Object {},
+      "handleNewQuestionsJeo": [Function],
+      "learningList": Object {},
+      "questions": Array [],
+      "removeItemFromLearningList": [Function],
+      "resetLearningList": [Function],
+      "totalQuestions": 0,
+    }
+  }
+>
+  <h2>
+    Jeopardy!
+  </h2>
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/jeopardy"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/jeopardy/:qId"
+  />
+  <Route
+    component={[Function]}
+    path="/jeopardy/:qId/learn"
+  />
+  <Route
+    component={[Function]}
+    path="/jeopardy/:qId/wiki"
+  />
+  <Route
+    component={[Function]}
+    path="/jeopardy/:qId/final"
+  />
+</ContextProvider>
+`;
