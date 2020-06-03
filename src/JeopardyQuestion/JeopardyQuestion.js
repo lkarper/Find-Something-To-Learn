@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import AppContext from '../AppContext/AppContext';
 
 class JeopardyQuestion extends Component {
-
-    static defaultProps = {
-        match: {
-            params: {
-                qId: '',
-            },
-        },
-    }
 
     static contextType = AppContext;
 
@@ -29,9 +20,9 @@ class JeopardyQuestion extends Component {
         console.log(correctAnswer, value)
         const { userResponse } = this.state;
         if (correctAnswer.trim().toLowerCase().indexOf(userResponse.trim().toLowerCase()) !== -1) {
-            this.context.checkAnswerAndUpdateScore(true, this.props.match.params.qId, value);
+            this.context.checkAnswerAndUpdateScore(true, this.context.currentQuestion, value);
         } else {
-            this.context.checkAnswerAndUpdateScore(false, this.props.match.params.qId, value);
+            this.context.checkAnswerAndUpdateScore(false, this.context.currentQuestion, value);
         }
     }
 
@@ -44,10 +35,10 @@ class JeopardyQuestion extends Component {
             </>
         );
 
-        if (this.props.match.params.qId && Object.keys(this.context).includes('questions')) {
+        if (Object.keys(this.context).includes('questions')) {
             const questions = this.context.questions;
             const numQuestions = this.context.questions.length;
-            const currentId = this.props.match.params.qId;
+            const currentId = this.context.currentQuestion;
             const currentScore = Object.keys(this.context.correctAnswersObject)
                 .map(key => parseInt(this.context.correctAnswersObject[key]))
                 .reduce((acc, curr) => {return acc + curr}, 0);
@@ -55,7 +46,7 @@ class JeopardyQuestion extends Component {
 
             return (
                 <div className="JeopardyQuestion__jContainer">
-                    <p><b>Quiz Progress:</b> {currentId}/{numQuestions}</p>
+                    <p><b>Quiz Progress:</b> {currentId + 1}/{numQuestions}</p>
                     <p><b>Current Score:</b> ${currentScore}</p>
                     <p><b>Category:</b> {currentQuestion.category.title}</p>
                     <p><b>Value:</b> {currentQuestion.value}</p>
@@ -78,10 +69,6 @@ class JeopardyQuestion extends Component {
         );
 
     }
-}
-
-JeopardyQuestion.propTypes = {
-    match: PropTypes.object.isRequired,
 }
 
 export default JeopardyQuestion;

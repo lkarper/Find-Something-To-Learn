@@ -69,11 +69,11 @@ class PubStyle extends Component {
     startNewGame = () => {
         this.setState({
             questions: [], 
-        totalQuestions: 0,
-        currentQuestion: 0,
-        page: '',
-        correct: false,
-        correctAnswerqIds: [],
+            totalQuestions: 0,
+            currentQuestion: 0,
+            page: '',
+            correct: false,
+            correctAnswerqIds: [],
         });
     }
 
