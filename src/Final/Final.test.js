@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { shallow } from 'enzyme';
+import toJSON from 'enzyme-to-json';
 import Final from './Final';
 
 describe('Final component', () => {
@@ -11,5 +13,10 @@ describe('Final component', () => {
                 <Final />
             </BrowserRouter>, div);
         ReactDOM.unmountComponentAtNode(div);
+    });
+
+    it('renders the UI as expected', () => {
+        const wrapper = shallow(<Final />);
+        expect(toJSON(wrapper)).toMatchSnapshot();
     });
 });

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Final component renders the UI as expected 1`] = `
+<div
+  className="Final__fcontainer"
+>
+  <h2>
+    Error
+  </h2>
+  <p>
+    Sorry, but something went wrong and the score and learning list could not be loaded.
+  </p>
+</div>
+`;

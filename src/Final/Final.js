@@ -14,10 +14,20 @@ class Final extends Component {
     }
 
     componentDidMount() {
-        window.scrollTo(0, 0);
+        window.scrollTo(0, 0);  // scrolls to top of page when component mounts
     }
 
     render() {
+
+        if (!this.props.match.path || !Object.keys(this.context).includes('learningList')) {
+            return (
+                <div className="Final__fcontainer">
+                    <h2>Error</h2>
+                    <p>Sorry, but something went wrong and the score and learning list could not be loaded.</p>
+                </div>
+            );
+        }
+
         const { learningList, removeItemFromLearningList, resetLearningList } = this.context;
 
         const learningHTML = Object.keys(learningList).map((key, i) => {
@@ -29,7 +39,7 @@ class Final extends Component {
                     <button type="button" onClick={() => removeItemFromLearningList(key)}>Remove this item</button>
                 </li>
             );
-        })
+        });
 
         let scoreHTML = null;
         const gameType = this.props.match.path.indexOf('pubstyle') !== -1 ? 'pubstyle' : 'jeopardy';
@@ -54,14 +64,16 @@ class Final extends Component {
                     {learningHTML.length > 0 ? <button onClick={() => resetLearningList()}>Click here to delete your learning list!</button> : ''}
                 <Link 
                     to={`/${gameType}`}
-                >Play Again
+                >
+                    Play Again
                 </Link>
-                <Link to={'/'}>
-                Back to homepage</Link>
-
+                <Link 
+                    to={'/'}
+                >
+                    Back to homepage
+                </Link>
             </div>
         );
-
     }
 }
 
