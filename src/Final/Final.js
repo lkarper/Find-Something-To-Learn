@@ -19,7 +19,7 @@ class Final extends Component {
 
     render() {
 
-        if (!this.props.match.path || !Object.keys(this.context).includes('learningList')) {
+        if (!Object.keys(this.context).includes('learningList')) {
             return (
                 <div className="Final__fcontainer">
                     <h2>Error</h2>
@@ -42,7 +42,7 @@ class Final extends Component {
         });
 
         let scoreHTML = null;
-        const gameType = this.props.match.path.indexOf('pubstyle') !== -1 ? 'pubstyle' : 'jeopardy';
+        const { gameType } = this.context;
 
         if (gameType === 'pubstyle') {
             scoreHTML = <p>You got {this.context.correctAnswerqIds.length}/{this.context.totalQuestions}</p>;
@@ -62,11 +62,7 @@ class Final extends Component {
                     {learningHTML.length > 0 ? learningHTML : <li>Looks like your Learning List is empty at this time.</li>}
                 </ol>
                     {learningHTML.length > 0 ? <button onClick={() => resetLearningList()}>Click here to delete your learning list!</button> : ''}
-                <Link 
-                    to={`/${gameType}`}
-                >
-                    Play Again
-                </Link>
+                <button type="button" onClick={() => this.context.startNewGame()}>Play Again</button>
                 <Link 
                     to={'/'}
                 >

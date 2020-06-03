@@ -30,8 +30,8 @@ class WikiPages extends Component {
             );
         });
 
-        const noResultsHTML = <li>Looks like something went wrong while searching Wikipedia: no results found.</li>
-        const loadingHTML = <li>Search Wikipedia...</li>
+        const noResultsHTML = <li>Looks like something went wrong while searching Wikipedia: no results found.</li>;
+        const loadingHTML = <li>Search Wikipedia...</li>;
 
         return (
             <ol>

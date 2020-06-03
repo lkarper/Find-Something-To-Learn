@@ -1,22 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import AppContext from '../AppContext/AppContext';
 
 class PubLearn extends Component {
-
-    static defaultProps = {
-        match: {
-            params: {
-                qId: '',
-            },
-        },
-        location: {
-            state: {
-                correct: false,
-            },
-        },
-    }
 
     static contextType = AppContext;
 
@@ -29,24 +14,20 @@ class PubLearn extends Component {
             </>
         );
 
-        if (this.props.match.params.qId && Object.keys(this.context).includes('questions')) {
-            const currentId = this.props.match.params.qId;
+        if (Object.keys(this.context).includes('questions')) {
+            const currentId = this.context.currentQuestion - 1;
             const currentQuestion = decodeURIComponent(this.context.questions[currentId].question);
             const correctAnswer = decodeURIComponent(this.context.questions[currentId].correct_answer);
 
             return (
                 <div className="Learn__lContainer">
-                    {this.props.location.state.correct ? "Congrats! You got it right!" : "Sorry, that's not the right answer."}
+                    {this.context.correct ? <p>"Congrats! You got it right!"</p> : <p>"Sorry, that's not the right answer."</p>}
                     <h3>Question: </h3>
                     <p>{currentQuestion}</p>
                     <h3>Correct answer:</h3>
                     <p>{correctAnswer}</p>
-                    <Link 
-                        to={parseInt(currentId) + 1 === this.context.totalQuestions ? `/pubstyle/${currentId}/final` : `/pubstyle/${(parseInt(currentId)+1)}`}
-                    >Next Question</Link>
-                    <Link 
-                        to={`/pubstyle/${currentId}/wiki`}
-                    >Learn Something with Wikipedia!</Link>                    
+                    <button type="button" onClick={() => this.context.goToNextQuestion()}>Next Question</button>
+                    <button type="button" onClick={() => this.context.goToWiki()}>Learn Something with Wikipedia!</button>                    
                 </div>
             );
         }
@@ -57,11 +38,6 @@ class PubLearn extends Component {
             </div>
         );
     }
-}
-
-PubLearn.propTypes = {
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
 }
 
 export default PubLearn;

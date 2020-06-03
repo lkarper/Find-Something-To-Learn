@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppContext from '../AppContext/AppContext';
 import WikiPages from '../WikiPages/WikiPages';
@@ -12,8 +11,7 @@ class Wiki extends Component {
                 qId: '',
             },
         },
-    }
-
+    }    
     static contextType = AppContext;
 
     state = {
@@ -22,9 +20,8 @@ class Wiki extends Component {
     }
 
     formWikiQuery = () => {
-        const { questions } = this.context;
-        console.log(questions);
-        const question = questions[this.props.match.params.qId];
+        const { questions, currentQuestion } = this.context;
+        const question = questions[currentQuestion - 1];
         if (Object.keys(question).includes('type')) {
             if (question.type !== 'boolean') {
                 let correctAnswerQuery = decodeURI(question.correct_answer.toLowerCase().split(/[ ,!.'";:-]+/).filter(Boolean).join(' '));
@@ -47,7 +44,6 @@ class Wiki extends Component {
             }
             const answerQuery = question.answer.toLowerCase().split(/[ ,!.'";:-]+/).filter(Boolean).join(' ');
             return `${answerQuery} ${questionQuery}`;
-
         }
     }
 
@@ -75,11 +71,9 @@ class Wiki extends Component {
     getWikiPages = (responseJson) => {
         const data = responseJson.query.search;
         console.log(data);
-        const pageIDs = [];
-        for (let result of data) {
-            pageIDs.push(result.pageid);
-        }
-        const pages = pageIDs.join("%7C");
+        const pages = data
+            .map(result => result.pageid)
+            .join("%7C");
         const params = {
             origin: "*",
             action: "query",
@@ -90,11 +84,9 @@ class Wiki extends Component {
             exintro: 1,
             explaintext: 1
         }
-        const queryArray = Object.keys(params).map(key => {
-            return `${key}=${params[key]}`;
-        });
-        console.log(queryArray);
-        const queryString = queryArray.join("&");
+        const queryString = Object.keys(params)
+            .map(key => `${key}=${params[key]}`)
+            .join("&");
         const url = `https://en.wikipedia.org//w/api.php?${queryString}`;
         fetch(url)
             .then(response => response.json())
@@ -120,7 +112,7 @@ class Wiki extends Component {
     }
 
     componentDidMount() {
-        if (this.props.match.params.qId && Object.keys(this.context).includes('questions')) {
+        if (Object.keys(this.context).includes('questions')) {
             this.fetchWikipediaInfo();
         }
     }
@@ -134,19 +126,14 @@ class Wiki extends Component {
             </>
         );
 
-        if (this.props.match.params.qId && Object.keys(this.context).includes('questions')) {
-            const currentId = this.props.match.params.qId;
-
-            const path = this.props.match.path.indexOf('pubstyle') !== -1 ? 'pubstyle' : 'jeopardy';
+        if ( Object.keys(this.context).includes('questions')) {
             
             return (
                 <>
                     <h2>Wiki Info</h2>
                     <div className="Wiki__wContainer">
                         <WikiPages pages={this.state.pages} fetched={this.state.fetched}/>
-                        <Link 
-                            to={parseInt(currentId) + 1 === this.context.totalQuestions ? `/${path}/${currentId}/final` : `/${path}/${(parseInt(currentId)+1)}`}
-                        >Next Question</Link>
+                        <button type="button" onClick={() => this.context.goToNextQuestion()}>Next Question</button>
                     </div>
                 </>
             );

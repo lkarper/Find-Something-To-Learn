@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import AppContext from '../AppContext/AppContext';
-class PubQuestion extends Component {
 
-    static defaultProps = {
-        match: {
-            params: {
-                qId: '',
-            },
-        },
-    }
+class PubQuestion extends Component {
 
     static contextType = AppContext;
 
@@ -20,10 +12,10 @@ class PubQuestion extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        if (this.state.userGuess === this.context.questions[this.props.match.params.qId].correct_answer) {
-            this.context.updateScoreAndCurrentQuestion(true, this.props.match.params.qId);
+        if (this.state.userGuess === this.context.questions[this.context.currentQuestion].correct_answer) {
+            this.context.updateScoreAndCurrentQuestion(true, this.context.currentQuestion);
         } else {
-            this.context.updateScoreAndCurrentQuestion(false, this.props.match.params.qId);
+            this.context.updateScoreAndCurrentQuestion(false, this.context.currentQuestion);
         }
     }
 
@@ -34,8 +26,8 @@ class PubQuestion extends Component {
     }
 
     componentDidMount() {
-        if (this.props.match.params.qId && Object.keys(this.context).includes('questions')) {
-            const currentQuestionIndex = this.props.match.params.qId;
+        if (Object.keys(this.context).includes('questions') && this.context.questions.length) {
+            const currentQuestionIndex = this.context.currentQuestion;
             const questionObject = this.context.questions[currentQuestionIndex];
             if (questionObject.type === 'multiple') {
                 const { correct_answer, incorrect_answers } = questionObject;
@@ -63,10 +55,9 @@ class PubQuestion extends Component {
             </>
         );
 
-        if (this.props.match.params.qId && Object.keys(this.context).includes('questions')) { 
-            const { totalQuestions, correctAnswerqIds } = this.context;
-            const currentQuestionIndex = this.props.match.params.qId;
-            const { category, difficulty, question, type } = this.context.questions[currentQuestionIndex];
+        if (Object.keys(this.context).includes('questions') && this.context.questions.length) { 
+            const { questions, totalQuestions, correctAnswerqIds, currentQuestion } = this.context;
+            const { category, difficulty, question, type } = questions[currentQuestion];
             let choicesHTML;
             if (type === 'multiple') {
                 choicesHTML = this.state.shuffledChoices.map((choice, i) => 
@@ -92,7 +83,7 @@ class PubQuestion extends Component {
 
             return (
                 <div className="PubQuestion__qcontainer">
-                    <p>Question {parseInt(currentQuestionIndex) + 1} of {totalQuestions}</p>
+                    <p>Question {parseInt(currentQuestion) + 1} of {totalQuestions}</p>
                     <p>Score: {correctAnswerqIds.length}/{totalQuestions}</p>
                     <p>Category: {decodeURIComponent(category)}</p>
                     <p>Type: {decodeURIComponent(type)}</p>
@@ -114,10 +105,6 @@ class PubQuestion extends Component {
             </div>
         );
     }
-}
-
-PubQuestion.propTypes = {
-    match: PropTypes.object.isRequired,
 }
 
 export default PubQuestion;

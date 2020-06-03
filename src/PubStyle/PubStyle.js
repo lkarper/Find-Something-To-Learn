@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
 import AppContext from '../AppContext/AppContext';
-import PubQuestion from '../PubQuestion/PubQuestion';
-import PubForm from '../PubForm/PubForm';
-import PubLearn from '../PubLearn/PubLearn';
-import Wiki from '../Wiki/Wiki';
-import Final from '../Final/Final';
+import PubPlay from '../PubPlay/PubPlay';
 
 class PubStyle extends Component {
 
     state = {
         questions: [], 
         totalQuestions: 0,
+        currentQuestion: 0,
+        page: '',
+        correct: false,
         correctAnswerqIds: [],
         learningList: {},
+        gameType: 'pubstyle',
     }
 
     addToLearningList = (key, wikiPage) => {
@@ -40,57 +39,69 @@ class PubStyle extends Component {
         this.setState({
             questions,
             totalQuestions: questions.length,
+            currentQuestion: 0,
+            page: 'question',
             correctAnswerqIds: [],
-        }, () => this.props.history.push(`/pubstyle/0`));
+        });
     }
 
     updateScoreAndCurrentQuestion = (correct, qId) => {
         this.setState({
             correctAnswerqIds: !this.state.correctAnswerqIds.includes(qId) && correct ? [...this.state.correctAnswerqIds, qId] : [...this.state.correctAnswerqIds],
-        }, () => this.props.history.push({
-                pathname: `/pubstyle/${qId}/learn`,
-                state: { correct },
-            })
-        );
+            page: 'learn',
+            correct,
+            currentQuestion: this.state.currentQuestion + 1,
+        });
+    }
+
+    goToNextQuestion = () => {
+        this.setState({
+            page: this.state.currentQuestion === this.state.totalQuestions ? 'final' : 'question',
+        });
+    }
+
+    goToWiki = () => {
+        this.setState({
+            page: 'wiki',
+        });
+    }
+
+    startNewGame = () => {
+        this.setState({
+            questions: [], 
+        totalQuestions: 0,
+        currentQuestion: 0,
+        page: '',
+        correct: false,
+        correctAnswerqIds: [],
+        });
     }
 
     render() {
-        const { questions, totalQuestions, correctAnswerqIds, learningList } = this.state;
+        const { questions, totalQuestions, currentQuestion, page, correct, correctAnswerqIds, learningList, gameType } = this.state;
         const contextValue = {
             questions, 
-            totalQuestions, 
+            totalQuestions,
+            currentQuestion,
+            page, 
+            correct,
             correctAnswerqIds,
             learningList, 
+            gameType,
             handleNewQuestionsPub: this.handleNewQuestionsPub,
             updateScoreAndCurrentQuestion: this.updateScoreAndCurrentQuestion,
+            goToNextQuestion: this.goToNextQuestion,
+            goToWiki: this.goToWiki,
             addToLearningList: this.addToLearningList,
             removeItemFromLearningList: this.removeItemFromLearningList,
             resetLearningList: this.resetLearningList,
+            startNewGame: this.startNewGame,
         };
 
         return (
             <AppContext.Provider value={contextValue}>
                 <h2>Pub Style!</h2>
-                <Route 
-                    exact path={'/pubstyle'}
-                    component={PubForm}
-                />
-                <Route 
-                    exact path={'/pubstyle/:qId'}
-                    component={PubQuestion}
-                />
-                <Route 
-                    path={'/pubstyle/:qId/learn'}
-                    component={PubLearn}
-                />
-                <Route
-                    path={'/pubstyle/:qId/wiki'}
-                    component={Wiki}
-                />
-                <Route 
-                    path={'/pubstyle/:qId/final'}
-                    component={Final}
-                />
+                <PubPlay />
             </AppContext.Provider>
         );
     }
