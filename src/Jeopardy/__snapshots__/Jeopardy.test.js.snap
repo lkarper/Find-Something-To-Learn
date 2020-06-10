@@ -6,12 +6,19 @@ exports[`Jeopardy component renders the UI as expected 1`] = `
     Object {
       "addToLearningList": [Function],
       "checkAnswerAndUpdateScore": [Function],
+      "correct": false,
       "correctAnswersObject": Object {},
+      "currentQuestion": 0,
+      "gameType": "jeopardy",
+      "goToNextQuestion": [Function],
+      "goToWiki": [Function],
       "handleNewQuestionsJeo": [Function],
       "learningList": Object {},
+      "page": "",
       "questions": Array [],
       "removeItemFromLearningList": [Function],
       "resetLearningList": [Function],
+      "startNewGame": [Function],
       "totalQuestions": 0,
     }
   }
@@ -19,27 +26,6 @@ exports[`Jeopardy component renders the UI as expected 1`] = `
   <h2>
     Jeopardy!
   </h2>
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/jeopardy"
-  />
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/jeopardy/:qId"
-  />
-  <Route
-    component={[Function]}
-    path="/jeopardy/:qId/learn"
-  />
-  <Route
-    component={[Function]}
-    path="/jeopardy/:qId/wiki"
-  />
-  <Route
-    component={[Function]}
-    path="/jeopardy/:qId/final"
-  />
+  <JeopardyPlay />
 </ContextProvider>
 `;

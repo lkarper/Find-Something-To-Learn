@@ -14,7 +14,7 @@ class PubLearn extends Component {
             </>
         );
 
-        if (Object.keys(this.context).includes('questions')) {
+        if (this.context.length && Object.keys(this.context).includes('questions')) {
             const currentId = this.context.currentQuestion - 1;
             const currentQuestion = decodeURIComponent(this.context.questions[currentId].question);
             const correctAnswer = decodeURIComponent(this.context.questions[currentId].correct_answer);

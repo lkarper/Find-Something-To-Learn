@@ -15,7 +15,7 @@ class JeopardyLearn extends Component {
             </>
         );
 
-        if (Object.keys(this.context).includes('questions')) {
+        if (this.context.length && Object.keys(this.context).includes('questions')) {
             const {currentQuestion, questions, correct, goToNextQuestion, goToWiki } = this.context;
             const currentQ = questions[currentQuestion - 1].question;
             const correctAnswer = questions[currentQuestion - 1].answer.replace('\\', '');
