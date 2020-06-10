@@ -112,7 +112,7 @@ class Wiki extends Component {
     }
 
     componentDidMount() {
-        if (this.context.length && Object.keys(this.context).includes('questions')) {
+        if (Object.keys(this.context).length && Object.keys(this.context).includes('questions')) {
             this.fetchWikipediaInfo();
         }
     }
