@@ -26,7 +26,7 @@ class PubQuestion extends Component {
     }
 
     componentDidMount() {
-        if (Object.keys(this.context).includes('questions') && Object.keys(this.context).length) {
+        if (Object.keys(this.context).includes('questions') && Object.keys(this.context.questions).length) {
             const currentQuestionIndex = this.context.currentQuestion;
             const questionObject = this.context.questions[currentQuestionIndex];
             if (questionObject.type === 'multiple') {

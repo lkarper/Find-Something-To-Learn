@@ -35,7 +35,7 @@ class JeopardyQuestion extends Component {
             </>
         );
 
-        if (Object.keys(this.context).length && Object.keys(this.context).includes('questions')) {
+        if (this.context.questions.length && Object.keys(this.context).includes('questions')) {
             const questions = this.context.questions;
             const numQuestions = this.context.questions.length;
             const currentId = this.context.currentQuestion;
