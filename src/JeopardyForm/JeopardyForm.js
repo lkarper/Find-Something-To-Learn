@@ -18,7 +18,7 @@ class JeopardyForm extends Component {
 
     fetchJeoTrivia = (event) => {
         event.preventDefault();
-        const url = `http://jservice.io/api/random?count=${this.state.numberQuestions}`;
+        const url = `https://jservice.io/api/random?count=${this.state.numberQuestions}`;
         fetch(url)
             .then(response => {
                 if (response.ok) {
